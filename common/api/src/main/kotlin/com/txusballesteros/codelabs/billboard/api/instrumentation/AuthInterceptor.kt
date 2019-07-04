@@ -34,7 +34,7 @@ class AuthInterceptor : Interceptor {
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val originalUrl = chain.request().url()
+        val originalUrl = chain.request().url
         val finalUrl = originalUrl.newBuilder()
             .addQueryParameter(TOKEN_QUERY_PARAM, TOKEN)
             .build()

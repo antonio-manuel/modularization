@@ -33,7 +33,7 @@ class ResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         if (!response.isSuccessful) {
-            when (response.code()) {
+            when (response.code) {
                 HttpURLConnection.HTTP_NOT_FOUND -> throwError(NotFoundException())
                 HttpURLConnection.HTTP_FORBIDDEN -> throwError(ForbiddenException())
                 HttpURLConnection.HTTP_INTERNAL_ERROR -> throwError(InternalErrorException())
