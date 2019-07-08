@@ -7,5 +7,5 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 class NowPlayingActivity : BaseActivity() {
-    override fun onRequestFragment() = NowPlayingFragment.newInstance()
+    override fun onRequestFragment() = NowPlayingFragment.newget()
 }

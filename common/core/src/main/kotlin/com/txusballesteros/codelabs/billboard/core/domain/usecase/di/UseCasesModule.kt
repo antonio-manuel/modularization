@@ -26,12 +26,9 @@ package com.txusballesteros.codelabs.billboard.core.domain.usecase.di
 
 import com.txusballesteros.codelabs.billboard.core.domain.usecase.movie.GetMovieByIdUseCase
 import com.txusballesteros.codelabs.billboard.core.domain.usecase.video.GetMovieVideosUseCase
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
+import org.koin.dsl.module
 
-internal val useCasesModule = Kodein.Module(name = "CoreUseCasesModule") {
-    bind<GetMovieVideosUseCase>() with provider { GetMovieVideosUseCase(instance()) }
-    bind<GetMovieByIdUseCase>() with provider { GetMovieByIdUseCase(instance()) }
+internal val useCasesModule = module {
+    factory { GetMovieVideosUseCase(get()) }
+    factory { GetMovieByIdUseCase(get()) }
 }

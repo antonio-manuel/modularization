@@ -27,17 +27,13 @@ package com.txusballesteros.codelabs.billboard.api.video.di
 import com.txusballesteros.codelabs.billboard.api.video.VideoApi
 import com.txusballesteros.codelabs.billboard.api.video.VideoRetrofitApi
 import com.txusballesteros.codelabs.billboard.api.video.VideoRetrofitService
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val videoApiModule = Kodein.Module(name = "VideoApiModule") {
-    bind<VideoApi>() with  provider { VideoRetrofitApi(instance()) }
-    bind<VideoRetrofitService>() with singleton {
-        val retrofit : Retrofit = instance()
+val videoApiModule = module{
+    factory <VideoApi> { VideoRetrofitApi(get()) }
+    single<VideoRetrofitService> {
+        val retrofit : Retrofit = get()
         retrofit.create(VideoRetrofitService::class.java)
     }
 }

@@ -30,11 +30,10 @@ import com.txusballesteros.codelabs.billboard.core.view.BaseFragment
 import com.txusballesteros.codelabs.billboard.core.view.extension.attach
 import com.txusballesteros.codelabs.billboard.core.view.extension.withArguments
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.R
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.di.featureComponent
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MovieDetailComposerPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -50,7 +49,7 @@ class MovieDetailComposerFragment : BaseFragment(), MovieDetailComposerPresenter
     override val movieId: String
         get() = arguments?.getString(ARGUMENT_ID) ?: throw IllegalArgumentException("The ID parameter can not be null.")
 
-    private val presenter : MovieDetailComposerPresenter by featureComponent.instance()
+    private val presenter : MovieDetailComposerPresenter by inject()
 
     override fun onRequestLayoutResourceId() = R.layout.fragment_movie_detail_composer
 

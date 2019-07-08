@@ -24,12 +24,9 @@
  */
 package com.txusballesteros.codelabs.billboard.navigation.di
 
-import com.txusballesteros.codelabs.billboard.navigation.Navigator
 import com.txusballesteros.codelabs.billboard.navigation.navigationImpl
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.provider
+import org.koin.dsl.module
 
-val navigationModule = Kodein.Module(name = "navigationModule") {
-    bind<Navigator>() with provider { navigationImpl }
+val navigationModule = module {
+    factory { navigationImpl }
 }

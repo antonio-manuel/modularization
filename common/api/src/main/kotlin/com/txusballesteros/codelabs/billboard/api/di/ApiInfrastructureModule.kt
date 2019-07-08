@@ -29,14 +29,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.txusballesteros.codelabs.billboard.api.instrumentation.AuthInterceptor
 import com.txusballesteros.codelabs.billboard.api.instrumentation.ResponseInterceptor
 import okhttp3.OkHttpClient
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-val apiInfrastructureModule = Kodein.Module(name = "apiInfrastructureModule") {
+val apiInfrastructureModule = module {
     val BASE_URL = "https://api.themoviedb.org/"
 
     val moshi by lazy {
@@ -53,19 +50,19 @@ val apiInfrastructureModule = Kodein.Module(name = "apiInfrastructureModule") {
             .build()
     }
 
-    bind<OkHttpClient>() with singleton {
-        val authInterceptor: AuthInterceptor = instance()
-        val responseInterceptor: ResponseInterceptor = instance()
+    single {
+        val authInterceptor: AuthInterceptor = get()
+        val responseInterceptor: ResponseInterceptor = get()
         OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(responseInterceptor)
             .build()
     }
 
-    bind<AuthInterceptor>() with singleton { AuthInterceptor() }
-    bind<ResponseInterceptor>() with singleton { ResponseInterceptor() }
-    bind<Retrofit>() with singleton {
-        val httpClient: OkHttpClient = instance()
+    single { AuthInterceptor() }
+    single { ResponseInterceptor() }
+    single {
+        val httpClient: OkHttpClient = get()
             buildRetrofit(httpClient)
     }
 }

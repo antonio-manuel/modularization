@@ -24,8 +24,8 @@
  */
 package com.txusballesteros.codelabs.billboard.core.di
 
-import org.kodein.di.Kodein
+import org.koin.dsl.koinApplication
 
-val coreComponent = Kodein {
-    import(coreModule)
+val coreComponent = koinApplication {
+    modules(coreModule)
 }

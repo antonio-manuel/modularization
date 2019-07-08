@@ -27,17 +27,13 @@ package com.txusballesteros.codelabs.billboard.api.nowplaying.di
 import com.txusballesteros.codelabs.billboard.api.nowplaying.NowPlayingApi
 import com.txusballesteros.codelabs.billboard.api.nowplaying.NowPlayingRetrofitApi
 import com.txusballesteros.codelabs.billboard.api.nowplaying.NowPlayingRetrofitService
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val nowPlayingApiModule = Kodein.Module(name = "NowPlayingApiModule") {
-    bind<NowPlayingApi>() with  provider { NowPlayingRetrofitApi(instance()) }
-    bind<NowPlayingRetrofitService>() with singleton {
-        val retrofit : Retrofit = instance()
+val nowPlayingApiModule = module {
+    factory<NowPlayingApi> { NowPlayingRetrofitApi(get()) }
+    single<NowPlayingRetrofitService> {
+        val retrofit: Retrofit = get()
         retrofit.create(NowPlayingRetrofitService::class.java)
     }
 }

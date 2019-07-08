@@ -28,6 +28,6 @@ dependencies {
     api project(":common:api")
     implementation project(":common:exceptions")
 
-    implementation kodein
+    implementation koin
     implementation try_monad
 }

@@ -31,9 +31,10 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.txusballesteros.codelabs.billboard.core.view.lifecycle.LifecycleFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.core.KoinComponent
 
 @ExperimentalCoroutinesApi
-abstract class BaseFragment : LifecycleFragment() {
+abstract class BaseFragment : KoinComponent, LifecycleFragment() {
     private val layoutResourceId by lazy {
         onRequestLayoutResourceId()
     }

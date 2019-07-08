@@ -25,18 +25,35 @@
 package com.txusballesteros.codelabs.billboard
 
 import android.app.Application
+import com.txusballesteros.codelabs.billboard.core.di.coreModule
+import com.txusballesteros.codelabs.billboard.feature.moviedetail.di.movieDetailModule
+import com.txusballesteros.codelabs.billboard.feature.nowplaying.di.nowPlayingModule
+import com.txusballesteros.codelabs.billboard.navigation.di.navigationModule
 import com.txusballesteros.codelabs.billboard.threading.APPLICATION_BG
 import com.txusballesteros.codelabs.billboard.threading.APPLICATION_MAIN
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newFixedThreadPoolContext
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
 
 class Application : Application() {
     @ObsoleteCoroutinesApi
     override fun onCreate() {
         super.onCreate()
         initializeThreading()
+        initializeDI()
+    }
+
+    private fun initializeDI() {
+        startKoin {
+            loadKoinModules(listOf(coreModule,
+                    navigationModule,
+                    nowPlayingModule,
+                    movieDetailModule
+            ))
+        }
     }
 
     @ObsoleteCoroutinesApi
@@ -45,8 +62,8 @@ class Application : Application() {
             throw error
         }
         APPLICATION_BG = newFixedThreadPoolContext(
-            2 * Runtime.getRuntime().availableProcessors(),
-            "bg"
+                2 * Runtime.getRuntime().availableProcessors(),
+                "bg"
         ) + CoroutineExceptionHandler { _, error ->
             throw error
         }

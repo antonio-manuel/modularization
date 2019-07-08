@@ -35,7 +35,7 @@ import com.txusballesteros.codelabs.billboard.feature.moviedetail.widget.GenreVi
 import kotlinx.android.synthetic.main.fragment_movie_genres.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -51,7 +51,7 @@ class MovieGenresFragment : BaseFragment(), MovieGenresPresenter.View {
     override val movie: Movie
         get() = arguments?.getSerializable(ARGUMENT_MOVIE) as? Movie ?: throw IllegalArgumentException("The Movie argument can not be null.")
 
-    private val presenter: MovieGenresPresenter by featureComponent.instance()
+    private val presenter: MovieGenresPresenter by inject()
 
     override fun onRequestLayoutResourceId() = R.layout.fragment_movie_genres
 

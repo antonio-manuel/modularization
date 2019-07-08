@@ -26,12 +26,9 @@ package com.txusballesteros.codelabs.billboard.core.data.repository.di
 
 import com.txusballesteros.codelabs.billboard.core.data.repository.MovieRepository
 import com.txusballesteros.codelabs.billboard.core.data.repository.VideoRepository
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 
-internal val repositoriesModule = Kodein.Module(name = "CoreRepositoriesModule") {
-    bind<VideoRepository>() with singleton { VideoRepository(instance()) }
-    bind<MovieRepository>() with  singleton { MovieRepository(instance()) }
+internal val repositoriesModule = module {
+    single { VideoRepository(get()) }
+    single { MovieRepository(get()) }
 }

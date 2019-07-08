@@ -32,25 +32,25 @@ import com.google.android.material.snackbar.Snackbar
 import com.txusballesteros.codelabs.billboard.core.domain.model.Movie
 import com.txusballesteros.codelabs.billboard.core.view.BaseFragment
 import com.txusballesteros.codelabs.billboard.feature.nowplaying.R
-import com.txusballesteros.codelabs.billboard.feature.nowplaying.di.featureComponent
 import com.txusballesteros.codelabs.billboard.feature.nowplaying.presentation.NowPlayingPresenter
 import com.txusballesteros.codelabs.billboard.navigation.Navigator
 import com.txusballesteros.codelabs.billboard.navigation.command.movieDetailNavigationCommand
 import kotlinx.android.synthetic.main.fragmnet_now_playing.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
-class NowPlayingFragment : BaseFragment(), NowPlayingPresenter.View {
+class NowPlayingFragment : KoinComponent, BaseFragment(), NowPlayingPresenter.View {
     companion object {
-        fun newInstance() = NowPlayingFragment()
+        fun newget() = NowPlayingFragment()
     }
 
     private lateinit var adapter: NowPlayingAdapter
-    private val navigate: Navigator by featureComponent.instance()
-    private val presenter: NowPlayingPresenter by featureComponent.instance()
+    private val navigate: Navigator by inject()
+    private val presenter: NowPlayingPresenter by inject()
     private var sharedView: View? = null
 
     override fun onRequestLayoutResourceId() = R.layout.fragmnet_now_playing

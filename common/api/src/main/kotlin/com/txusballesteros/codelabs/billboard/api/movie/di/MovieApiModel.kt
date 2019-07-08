@@ -27,17 +27,13 @@ package com.txusballesteros.codelabs.billboard.api.movie.di
 import com.txusballesteros.codelabs.billboard.api.movie.MovieApi
 import com.txusballesteros.codelabs.billboard.api.movie.MovieRetrofitApi
 import com.txusballesteros.codelabs.billboard.api.movie.MovieRetrofitService
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val movieApiModule = Kodein.Module(name = "MovieApiModule") {
-    bind<MovieApi>() with provider { MovieRetrofitApi(instance()) }
-    bind<MovieRetrofitService>() with singleton {
-        val retrofit : Retrofit = instance()
+val movieApiModule = module {
+    factory<MovieApi>{ MovieRetrofitApi(get()) }
+    single<MovieRetrofitService> {
+        val retrofit : Retrofit = get()
         retrofit.create(MovieRetrofitService::class.java)
     }
 }

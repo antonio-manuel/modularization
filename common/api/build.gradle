@@ -33,7 +33,7 @@ dependencies {
     implementation moshi
     implementation moshi_kotlin
     implementation moshi_adapters
-    implementation kodein
+    implementation koin
     implementation kotlin_JDK8
     implementation option_monad
     implementation try_monad

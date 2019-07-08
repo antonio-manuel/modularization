@@ -28,17 +28,20 @@ import com.txusballesteros.codelabs.billboard.api.di.apiInfrastructureModule
 import com.txusballesteros.codelabs.billboard.api.movie.di.movieApiModule
 import com.txusballesteros.codelabs.billboard.api.nowplaying.di.nowPlayingApiModule
 import com.txusballesteros.codelabs.billboard.api.video.di.videoApiModule
-import com.txusballesteros.codelabs.billboard.core.data.datasource.di.dataSoucresModule
+import com.txusballesteros.codelabs.billboard.core.data.datasource.di.dataSourcesModule
 import com.txusballesteros.codelabs.billboard.core.data.repository.di.repositoriesModule
 import com.txusballesteros.codelabs.billboard.core.domain.usecase.di.useCasesModule
-import org.kodein.di.Kodein
+import org.koin.core.context.loadKoinModules
+import org.koin.dsl.module
 
-internal val coreModule = Kodein.Module(name = "CoreModule") {
-    import(dataSoucresModule)
-    import(repositoriesModule)
-    import(useCasesModule)
-    import(apiInfrastructureModule)
-    import(nowPlayingApiModule)
-    import(movieApiModule)
-    import(videoApiModule)
+val coreModule = module {
+    loadKoinModules(
+            listOf(dataSourcesModule,
+                    repositoriesModule,
+                    useCasesModule,
+                    apiInfrastructureModule,
+                    nowPlayingApiModule,
+                    movieApiModule,
+                    videoApiModule)
+    )
 }

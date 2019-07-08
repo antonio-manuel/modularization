@@ -31,15 +31,13 @@ import com.txusballesteros.codelabs.billboard.core.view.BaseFragment
 import com.txusballesteros.codelabs.billboard.core.view.extension.download
 import com.txusballesteros.codelabs.billboard.core.view.extension.withArguments
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.R
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.di.featureComponent
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MovieBackdropPresenter
 import com.txusballesteros.codelabs.billboard.navigation.NavigationCommand
 import com.txusballesteros.codelabs.billboard.navigation.Navigator
 import kotlinx.android.synthetic.main.fragment_movie_backdrop.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
-import java.lang.IllegalArgumentException
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -55,8 +53,8 @@ class MovieBackdropFragment : BaseFragment(), MovieBackdropPresenter.View {
     override val movie: Movie
         get() = arguments?.getSerializable(ARGUMENT_MOVIE) as? Movie ?: throw IllegalArgumentException("The Movie argument can not be null.")
 
-    private val presenter: MovieBackdropPresenter by featureComponent.instance()
-    private val navigate: Navigator by featureComponent.instance()
+    private val presenter: MovieBackdropPresenter by inject()
+    private val navigate: Navigator by inject()
 
 
     override fun onRequestLayoutResourceId() = R.layout.fragment_movie_backdrop

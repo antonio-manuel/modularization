@@ -29,12 +29,11 @@ import com.txusballesteros.codelabs.billboard.core.domain.model.Movie
 import com.txusballesteros.codelabs.billboard.core.view.BaseFragment
 import com.txusballesteros.codelabs.billboard.core.view.extension.withArguments
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.R
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.di.featureComponent
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MovieTitlePresenter
 import kotlinx.android.synthetic.main.fragment_movie_title.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -50,7 +49,7 @@ class MovieTitleFragment : BaseFragment(), MovieTitlePresenter.View {
     override val movie: Movie
         get() = arguments?.getSerializable(ARGUMENT_MOVIE) as? Movie ?: throw IllegalArgumentException("The Movie argument can not be null.")
 
-    private val presenter: MovieTitlePresenter by featureComponent.instance()
+    private val presenter: MovieTitlePresenter by inject()
 
     override fun onRequestLayoutResourceId() = R.layout.fragment_movie_title
 

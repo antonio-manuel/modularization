@@ -29,6 +29,6 @@ dependencies {
 
     implementation kotlin_JDK8
     implementation app_compat
-    implementation kodein
+    implementation koin
     implementation try_monad
 }

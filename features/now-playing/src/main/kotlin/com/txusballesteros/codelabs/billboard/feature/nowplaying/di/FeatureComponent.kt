@@ -24,16 +24,11 @@
  */
 package com.txusballesteros.codelabs.billboard.feature.nowplaying.di
 
-import com.txusballesteros.codelabs.billboard.core.di.coreComponent
+import com.txusballesteros.codelabs.billboard.core.di.coreModule
 import com.txusballesteros.codelabs.billboard.navigation.di.navigationModule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.Kodein
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
 
-@ObsoleteCoroutinesApi
-@ExperimentalCoroutinesApi
-internal val featureComponent = Kodein {
-    extend(coreComponent)
-    import(featureModule)
-    import(navigationModule)
-}
+internal val featureComponent = startKoin {
+    loadKoinModules(listOf(coreModule, nowPlayingModule, navigationModule))
+}.koin

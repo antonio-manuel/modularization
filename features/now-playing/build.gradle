@@ -30,7 +30,7 @@ dependencies {
     implementation project(':common:core-view')
     implementation project(':common:navigation')
 
-    implementation kodein
+    implementation koin
     implementation try_monad
     implementation recycler_view
     implementation constraint_layout

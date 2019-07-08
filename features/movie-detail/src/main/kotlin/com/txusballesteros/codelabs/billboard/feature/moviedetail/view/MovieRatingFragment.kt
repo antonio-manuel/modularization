@@ -25,23 +25,15 @@
 package com.txusballesteros.codelabs.billboard.feature.moviedetail.view
 
 import android.os.Bundle
-import android.view.View.GONE
 import com.txusballesteros.codelabs.billboard.core.domain.model.Movie
 import com.txusballesteros.codelabs.billboard.core.view.BaseFragment
-import com.txusballesteros.codelabs.billboard.core.view.extension.download
 import com.txusballesteros.codelabs.billboard.core.view.extension.withArguments
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.R
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.di.featureComponent
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MovieBackdropPresenter
-import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MoviePosterPresenter
 import com.txusballesteros.codelabs.billboard.feature.moviedetail.presentation.MovieRatingPresenter
-import kotlinx.android.synthetic.main.fragment_movie_backdrop.*
-import kotlinx.android.synthetic.main.fragment_movie_poster.*
 import kotlinx.android.synthetic.main.fragment_movie_rating.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.kodein.di.generic.instance
-import java.lang.IllegalArgumentException
+import org.koin.core.inject
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -57,7 +49,7 @@ class MovieRatingFragment : BaseFragment(), MovieRatingPresenter.View {
     override val movie: Movie
         get() = arguments?.getSerializable(ARGUMENT_MOVIE) as? Movie ?: throw IllegalArgumentException("The Movie argument can not be null.")
 
-    private val presenter: MovieRatingPresenter by featureComponent.instance()
+    private val presenter: MovieRatingPresenter by inject()
 
     override fun onRequestLayoutResourceId() = R.layout.fragment_movie_rating
 
