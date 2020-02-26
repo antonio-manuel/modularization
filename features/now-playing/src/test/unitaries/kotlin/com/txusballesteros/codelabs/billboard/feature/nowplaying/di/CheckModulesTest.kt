@@ -22,19 +22,25 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-apply from: "${rootDir}/buildsystem/android-module.gradle"
+package com.txusballesteros.codelabs.billboard.feature.nowplaying.di
 
-dependencies {
-    implementation project(':common:threading')
-    implementation project(':common:core')
-    implementation project(':common:core-view')
-    implementation project(':common:navigation')
+import org.junit.jupiter.api.Test
+import org.koin.dsl.koinApplication
+import org.koin.dsl.module
+import org.koin.test.check.checkModules
 
-    implementation koin
-    implementation try_monad
-    implementation recycler_view
-    implementation constraint_layout
+internal class CheckModulesTest {
 
-    testImplementation project(":common:core-testing")
-    testImplementation koin_test
+    @Test
+    fun `check a simple module`() {
+        koinApplication {
+            modules(
+                module {
+                    single {
+                        nowPlayingModule
+                    }
+                }
+            )
+        }.checkModules()
+    }
 }
